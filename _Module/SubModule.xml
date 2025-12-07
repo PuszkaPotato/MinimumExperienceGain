@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Module xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/BUTR/Bannerlord.XmlSchemas/master/SubModule.xsd" >
-  <Id value="$moduleid$" />
-  <Name value="$modulename$" />
-  <Version value="v$version$" />
+  <Id value="MinimumExperienceGain" />
+  <Name value="MinimumExperienceGain" />
+  <Version value="v1.1.0.0" />
   <DefaultModule value="false" />
   <ModuleCategory value="Singleplayer"/>
   <ModuleType value="Community" />
-  <Url value="$moduleurl$" />
+  <Url value="https://github.com/PuszkaPotato/MinimumExperienceGain" />
 	<DependedModules>
-		<DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.3.6.*" />
+		<DependedModule Id="Bannerlord.Harmony" DependentVersion="v2.4.*" />
 		<DependedModule Id="Bannerlord.MBOptionScreen" DependentVersion="v5.*" />
 		<DependedModule Id="Native" DependentVersion="v1.3.9.0" />
 		<DependedModule Id="SandBoxCore" DependentVersion="v1.3.9.0" />
@@ -18,20 +18,20 @@
 	</DependedModules>
 	<!-- Community Dependency Metadata -->
 	<DependedModuleMetadatas>
-		<DependedModuleMetadata id="Bannerlord.Harmony" order="LoadBeforeThis" version="v2.3.6.*"/>
+		<DependedModuleMetadata id="Bannerlord.Harmony" order="LoadBeforeThis" version="v2.4.*"/>
 		<DependedModuleMetadata id="Bannerlord.MBOptionScreen" order="LoadBeforeThis" version="v5.*"/>
-		<DependedModuleMetadata id="Native" order="LoadBeforeThis" version="v$gameversion$.*" />
-		<DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis" version="v$gameversion$.*" />
-		<DependedModuleMetadata id="Sandbox" order="LoadBeforeThis" version="v$gameversion$.*" />
-		<DependedModuleMetadata id="StoryMode" order="LoadBeforeThis" version="v$gameversion$.*" />
-		<DependedModuleMetadata id="CustomBattle" order="LoadBeforeThis" version="v$gameversion$.*" />
+		<DependedModuleMetadata id="Native" order="LoadBeforeThis" version="v1.3.9.0" />
+		<DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis" version="v1.3.9.0" />
+		<DependedModuleMetadata id="Sandbox" order="LoadBeforeThis" version="v1.3.9.0" />
+		<DependedModuleMetadata id="StoryMode" order="LoadBeforeThis" version="v1.3.9.0" />
+		<DependedModuleMetadata id="CustomBattle" order="LoadBeforeThis" version="v1.3.9.0" />
 	</DependedModuleMetadatas>
   <!-- Community Dependency Metadata -->
   <SubModules>
     <SubModule>
-      <Name value="$modulename$" />
-      <DLLName value="$modulename$.dll" />
-      <SubModuleClassType value="$modulename$.SubModule" />
+      <Name value="MinimumExperienceGain" />
+      <DLLName value="MinimumExperienceGain.dll" />
+      <SubModuleClassType value="MinimumExperienceGain.SubModule" />
       <Tags />
     </SubModule>
   </SubModules>

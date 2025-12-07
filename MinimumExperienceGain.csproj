@@ -72,4 +72,34 @@
 	<PackageReference Include="Bannerlord.MCM" Version="5.11.3" PrivateAssets="all" IncludeAssets="compile" />
   </ItemGroup>
 
+  <!-- Include module files so they can be copied to the game folder -->
+  <ItemGroup>
+    <Content Include="_Module\**\*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <!-- Copy build output and module files into the Bannerlord Modules folder after build when GameFolder is set -->
+  <Target Name="CopyToBannerlordModules" AfterTargets="Build" Condition=" '$(GameFolder)' != '' and Exists('$(GameFolder)') ">
+    <!-- Module root and bin target directories -->
+    <PropertyGroup>
+      <_BannerlordModuleDir>$(GameFolder)\Modules\$(ModuleName)</_BannerlordModuleDir>
+      <_BannerlordModuleBinDir>$([System.IO.Path]::Combine('$(_BannerlordModuleDir)', 'bin', '$(GameBinariesFolder)'))</_BannerlordModuleBinDir>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(_BannerlordModuleDir)" Condition="!Exists('$(_BannerlordModuleDir)')" />
+    <MakeDir Directories="$(_BannerlordModuleBinDir)" Condition="!Exists('$(_BannerlordModuleBinDir)')" />
+
+    <!-- Copy compiled assembly and pdbs -->
+    <ItemGroup>
+      <_BuiltFiles Include="$(TargetDir)$(TargetFileName)" />
+      <_BuiltPdb Include="$(TargetDir)$(TargetName).pdb" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+      <_OutputDependencies Include="@(Content)" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(_BuiltFiles)" DestinationFolder="$(_BannerlordModuleBinDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_BuiltPdb)" DestinationFolder="$(_BannerlordModuleBinDir)" SkipUnchangedFiles="true" />
+
+    <!-- Copy content (SubModule.xml, module_data, etc.) to module root preserving folders -->
+    <Copy SourceFiles="@(_OutputDependencies)" DestinationFiles="@( _OutputDependencies -> '$(_BannerlordModuleDir)\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

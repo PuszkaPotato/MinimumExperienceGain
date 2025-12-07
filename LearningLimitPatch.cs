@@ -17,8 +17,8 @@ namespace MinimumExperienceGain
             MaxSkillValue = settings.MaxSkillValue;
         }
     }
-    [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "CalculateLearningRate")]
-    [HarmonyPatch(new Type[] {
+
+    [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "CalculateLearningRate", new Type[] {
         typeof(IReadOnlyPropertyOwner<CharacterAttribute>),
         typeof(int),     // focusValue
         typeof(int),     // skillValue
@@ -32,7 +32,7 @@ namespace MinimumExperienceGain
             if (skillValue >= ConfigCache.MaxSkillValue)
             {
                 __result.LimitMin(0f);
-            } 
+            }
             else
             {
                 __result.LimitMin(ConfigCache.MinLearningRate);

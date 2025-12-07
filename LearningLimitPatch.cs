@@ -3,10 +3,20 @@ using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Core;
-using TaleWorlds.Localization;
 
 namespace MinimumExperienceGain
 {
+    public static class ConfigCache
+    {
+        public static float MinLearningRate { get; private set; }
+        public static int MaxSkillValue { get; private set; }
+
+        public static void Refresh(Settings settings)
+        {
+            MinLearningRate = settings.MinLearningRate;
+            MaxSkillValue = settings.MaxSkillValue;
+        }
+    }
     [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "CalculateLearningRate")]
     [HarmonyPatch(new Type[] {
         typeof(IReadOnlyPropertyOwner<CharacterAttribute>),
@@ -19,13 +29,13 @@ namespace MinimumExperienceGain
     {
         static void Postfix(ref ExplainedNumber __result, int skillValue)
         {
-            if (skillValue >= Settings.Instance.MaxSkillValue)
+            if (skillValue >= ConfigCache.MaxSkillValue)
             {
                 __result.LimitMin(0f);
             } 
             else
             {
-                __result.LimitMin(Settings.Instance.MinLearningRate);
+                __result.LimitMin(ConfigCache.MinLearningRate);
             }
         }
     }

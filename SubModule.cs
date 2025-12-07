@@ -26,6 +26,8 @@ namespace MinimumExperienceGain
         { 
             InformationManager.DisplayMessage(new InformationMessage(string.Format("{0} loaded", ModuleName), Colors.Green));
 
+            ConfigCache.Refresh(Settings.Instance);
+
             base.OnBeforeInitialModuleScreenSetAsRoot();
         }
     }
